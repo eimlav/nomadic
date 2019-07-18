@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nomadic/core/constants/app_constants.dart';
+import 'package:nomadic/ui/shared/styles.dart';
 
-import '../styles.dart';
-
-class HomeScreen extends StatefulWidget {
+class HomeView extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Widget> _buildScrollViewItems() {
-    return [_buildListButton('Checklist', Icons.list, () {})];
+    return [
+      _buildListButton('Checklist', Icons.list, () {
+        Navigator.pushNamed(context, RoutePaths.Checklist);
+      })
+    ];
   }
 
   Widget _buildListButton(String title, IconData icon, Function callback) {

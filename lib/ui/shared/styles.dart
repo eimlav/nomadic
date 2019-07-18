@@ -31,6 +31,20 @@ class Styles {
     top: Styles.verticalPaddingDefault,
   );
 
+  static final textDefault = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeDefault,
+    color: _textColorDefault,
+    height: 1.2,
+  );
+
+  static final textSmall = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeSmall,
+    color: _textColorFaint,
+    height: 1.2,
+  );
+
   static Color _hexToColor(String code) {
     return Color(int.parse(code.substring(0, 6), radix: 16) + 0xFF000000);
   }
