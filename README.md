@@ -1,16 +1,33 @@
 # nomadic
 
-A new Flutter project.
+A simple Flutter app providing helpful utilities while you're travelling the world.
 
-## Getting Started
+## Requirements
 
-This project is a starting point for a Flutter application.
+### Inventory
 
-A few resources to get you started if this is your first Flutter project:
+- Create inventory item model. Model should include:
+    - ID
+    - Name
+    - Description
+    - Category
+    - Quantity
+    - Location
+    - Photos
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Add inventory item
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Edit inventory item
+
+- Delete inventory item
+
+### Checklist
+
+- Enable checklist to check that all items are accounted for.
+
+### Misc
+
+- Show exchange rates for selected currencies
+
+- Show weather of current and/or specified location
+
