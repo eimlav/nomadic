@@ -30,9 +30,9 @@ class ChecklistListItem extends StatelessWidget {
     return CircleAvatar(
       backgroundColor: Colors.grey[400],
       foregroundColor: Colors.white,
-      backgroundImage: this.checklistItem.photos.isEmpty
-          ? AssetImage(Defaults.placeholderImage)
-          : AssetImage(this.checklistItem.photos[0]),
+      backgroundImage: this.checklistItem.hasPhotos()
+          ? AssetImage(this.checklistItem.getPhotos()[0])
+          : AssetImage(Defaults.placeholderImage),
       radius: 20.0,
     );
   }
@@ -62,8 +62,7 @@ class ChecklistListItem extends StatelessWidget {
   }
 
   Widget _buildSecondSectionCameraIcon() {
-    if (this.checklistItem.photos != null &&
-        this.checklistItem.photos.isNotEmpty)
+    if (this.checklistItem.hasPhotos())
       return Icon(Icons.camera_alt, color: Colors.grey[400], size: 14.0);
     return Container();
   }

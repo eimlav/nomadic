@@ -4,7 +4,7 @@ class ChecklistItem {
   String description;
   String category;
   int quantity;
-  List<String> photos;
+  String photos;
 
   ChecklistItem(
       {this.id,
@@ -32,5 +32,15 @@ class ChecklistItem {
     data['quantity'] = this.quantity;
     data['photos'] = this.photos;
     return data;
+  }
+
+  bool hasPhotos() {
+    return this.photos.isNotEmpty;
+  }
+
+  List<String> getPhotos() {
+    if (!hasPhotos()) return [];
+
+    return this.photos.split(',');
   }
 }

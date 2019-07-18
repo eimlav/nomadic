@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nomadic/core/viewmodels/widgets/checklist_model.dart';
 import 'package:nomadic/ui/views/base_widget.dart';
 import 'package:nomadic/ui/widgets/checklist_listitem.dart';
+import 'package:provider/provider.dart';
 
 class Checklist extends StatelessWidget {
   const Checklist({Key key}) : super(key: key);
@@ -10,7 +11,7 @@ class Checklist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseWidget<ChecklistModel>(
-        model: ChecklistModel(),
+        model: ChecklistModel(dbService: Provider.of(context)),
         onModelReady: (model) => model.getChecklistItems(),
         builder: (context, model, child) => model.busy
             ? Center(

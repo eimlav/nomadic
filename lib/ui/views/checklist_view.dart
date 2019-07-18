@@ -9,6 +9,10 @@ class ChecklistView extends StatelessWidget {
       appBar: AppBar(
         title: Text('checklist'),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {},
+      ),
       body: SafeArea(
         child: Container(
             padding: Styles.screenContentPadding,
