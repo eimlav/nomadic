@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:nomadic/core/models/checklist_item.dart';
+import 'package:nomadic/core/viewmodels/views/checklist_view_model.dart';
 import 'package:nomadic/ui/shared/defaults.dart';
 import 'package:nomadic/ui/shared/styles.dart';
 import 'package:nomadic/ui/shared/ui_helper.dart';
+import 'package:nomadic/ui/widgets/checklist_view_bottomsheet.dart';
+import 'package:provider/provider.dart';
 
 class ChecklistListItem extends StatelessWidget {
   final ChecklistItem checklistItem;
-  final Function onTap;
-  const ChecklistListItem(this.checklistItem, this.onTap);
+  const ChecklistListItem(this.checklistItem);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: this.onTap,
+      onTap: () async {
+        var checklistViewModel = Provider.of<ChecklistViewModel>(context);
+
+        checklistViewModel.showFloatingActionButton = false;
+
+        var sheetController = showBottomSheet(
+            context: context,
+            builder: (context) => ChecklistViewBottomSheet(this.checklistItem));
+        sheetController.closed.then((value) {
+          checklistViewModel.showFloatingActionButton = true;
+        });
+      },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 5.0),
         child: Row(

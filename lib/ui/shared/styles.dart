@@ -9,13 +9,18 @@ class Styles {
 
   static const _textSizeLarge = 24.0;
   static const _textSizeDefault = 15.0;
-  static const _textSizeMedium = 16.0;
+  static const _textSizeMedium = 18.0;
   static const _textSizeSmall = 12.0;
 
   static final Color _textColorStrong = _hexToColor('000000');
   static final Color _textColorDefault = _hexToColor('003d33');
   static final Color _textColorFaint = _hexToColor('858585');
   static final Color _textColorVeryFaint = _hexToColor('909090');
+
+  static final Color _textColorLink = _hexToColor('f7f5fa');
+
+  static final Color _textColorDefaultContrast = _hexToColor('fffffe');
+  static final Color _textColorLinkConstrast = _hexToColor('eee8fc');
 
   static final String _fontNameDefault = 'Montserrat';
 
@@ -42,6 +47,29 @@ class Styles {
     fontFamily: _fontNameDefault,
     fontSize: _textSizeSmall,
     color: _textColorFaint,
+    height: 1.2,
+  );
+
+  static final textDefaultContrast = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeMedium,
+    fontWeight: FontWeight.bold,
+    color: _textColorDefaultContrast,
+    height: 1.2,
+  );
+
+  static final textSmallContrast = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeDefault,
+    color: _textColorDefaultContrast,
+    height: 1.2,
+  );
+
+  static final textLink = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeDefault,
+    color: _textColorLink,
+    fontWeight: FontWeight.w700,
     height: 1.2,
   );
 

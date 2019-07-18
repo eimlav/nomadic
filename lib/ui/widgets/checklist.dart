@@ -21,15 +21,6 @@ class Checklist extends StatelessWidget {
                 itemCount: model.checklistItems.length,
                 itemBuilder: (context, index) => ChecklistListItem(
                       model.checklistItems[index],
-                      () {},
-                      // post: model.posts[index],
-                      // onTap: () {
-                      // Navigator.pushNamed(
-                      //   context,
-                      //   RoutePaths.Post,
-                      //   arguments: model.posts[index],
-                      // );
-                      // },
                     ),
               ));
   }
