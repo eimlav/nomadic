@@ -101,6 +101,26 @@ class Styles {
     color: _textColorDefaultContrast,
   );
 
+  static final textFieldHeader = TextStyle(
+    color: _textColorFormDefault,
+    fontSize: _textSizeSmall,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final textFieldHeaderContrast = TextStyle(
+    color: _textColorDefaultContrast,
+    fontSize: _textSizeSmall,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final dropDownText = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeMedium,
+    fontWeight: FontWeight.bold,
+    color: _textColorDefault,
+    height: 1.2,
+  );
+
   static final textButton = TextStyle(
     fontFamily: _fontNameDefault,
     fontSize: _textSizeMedium,

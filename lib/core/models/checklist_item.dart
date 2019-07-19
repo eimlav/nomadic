@@ -1,3 +1,21 @@
+enum ChecklistItemCategories {
+  Luggage,
+  Clothing,
+  Electronics,
+  Food,
+  Documents,
+  Misc,
+}
+
+final Map<ChecklistItemCategories, String> checklistItemCategoriesName = {
+  ChecklistItemCategories.Luggage: "Luggage",
+  ChecklistItemCategories.Clothing: "Clothing",
+  ChecklistItemCategories.Electronics: "Electronics",
+  ChecklistItemCategories.Food: "Food",
+  ChecklistItemCategories.Documents: "Documents",
+  ChecklistItemCategories.Misc: "Misc",
+};
+
 class ChecklistItem {
   int id;
   String name;
@@ -43,4 +61,6 @@ class ChecklistItem {
 
     return this.photos.split(',');
   }
+
+  static validateCategory(String value) {}
 }

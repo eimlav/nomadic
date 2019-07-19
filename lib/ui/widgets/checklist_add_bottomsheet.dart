@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nomadic/core/constants/app_constants.dart';
 import 'package:nomadic/core/constants/form_constants.dart';
+import 'package:nomadic/core/models/checklist_item.dart';
 import 'package:nomadic/core/viewmodels/widgets/checklist_add_bottomsheet_model.dart';
 import 'package:nomadic/ui/shared/styles.dart';
 import 'package:nomadic/ui/shared/ui_helper.dart';
@@ -17,6 +18,8 @@ class ChecklistAddBottomSheet extends StatefulWidget {
 }
 
 class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
+  String _dropDownValue = 'Misc';
+
   @override
   Widget build(BuildContext context) {
     return BaseWidget<ChecklistAddBottomSheetModel>(
@@ -72,19 +75,22 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
                 validator: (value) => model.validateQuantityField(value),
               ),
               UIHelper.verticalSpaceMedium,
-              TextFormField(
-                style: Styles.textFormFieldInputContrast,
-                decoration: InputDecoration(
-                    labelText: 'category',
-                    labelStyle: Styles.textFormFieldContrast,
-                    errorStyle: Styles.textFormFieldContrast,
-                    counterStyle: Styles.textFormFieldContrast),
-                cursorColor: Colors.white,
-                maxLines: 1,
-                maxLength: FormConstants.categoryMaxLength,
-                keyboardType: TextInputType.text,
-                onSaved: (value) => model.form["category"] = value,
-                validator: (value) => model.validateCategoryField(value),
+              Text('category', style: Styles.textFieldHeaderContrast),
+              DropdownButton(
+                style: Styles.dropDownText,
+                value: _dropDownValue,
+                items: checklistItemCategoriesName.entries
+                    .map<DropdownMenuItem<String>>(
+                        (MapEntry<ChecklistItemCategories, String> e) =>
+                            DropdownMenuItem<String>(
+                              value: e.value,
+                              child: Text(e.value),
+                            ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() => _dropDownValue = value);
+                  model.form["category"] = _dropDownValue;
+                },
               ),
               UIHelper.verticalSpaceMedium,
               TextFormField(

@@ -37,16 +37,13 @@ class ChecklistModel extends BaseModel {
     checklistCount = 0;
     showCheckboxes = value;
     notifyListeners();
-    print(value);
   }
 
   void incrementChecklistCount() {
     checklistCount++;
-    print(checklistCount);
   }
 
   void decrementChecklistCount() {
     checklistCount--;
-    print(checklistCount);
   }
 }

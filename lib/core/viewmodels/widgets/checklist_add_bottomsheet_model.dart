@@ -9,7 +9,7 @@ import 'package:nomadic/core/viewmodels/base_model.dart';
 class ChecklistAddBottomSheetModel extends BaseModel {
   DBService _dbService;
   bool autoValidate = false;
-  Map<String, dynamic> form = Map<String, dynamic>();
+  Map<String, dynamic> form = {'category': 'Misc'};
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   ChecklistAddBottomSheetModel({
@@ -30,8 +30,11 @@ class ChecklistAddBottomSheetModel extends BaseModel {
 
   // Validate category field
   String validateCategoryField(String value) {
-    return Validator.stringLengthValidator(value, 'category',
-        FormConstants.categoryMinLength, FormConstants.categoryMaxLength);
+    var result = checklistItemCategoriesName[value];
+    if (result == null) {
+      return 'category should be one of those specifed';
+    }
+    return null;
   }
 
   // Validate description field

@@ -19,6 +19,14 @@ class ChecklistEditView extends StatefulWidget {
 }
 
 class _ChecklistEditViewState extends State<ChecklistEditView> {
+  String _dropDownValue = 'Misc';
+
+  @override
+  Widget initState() {
+    super.initState();
+    _dropDownValue = widget.checklistItem.category;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseWidget<ChecklistEditViewModel>(
@@ -81,20 +89,22 @@ class _ChecklistEditViewState extends State<ChecklistEditView> {
                 validator: (value) => model.validateQuantityField(value),
               ),
               UIHelper.verticalSpaceMedium,
-              TextFormField(
-                initialValue: widget.checklistItem.category,
-                style: Styles.textFormFieldInput,
-                decoration: InputDecoration(
-                    labelText: 'category',
-                    labelStyle: Styles.textFormField,
-                    errorStyle: Styles.textFormField,
-                    counterStyle: Styles.textFormField),
-                cursorColor: Theme.of(context).primaryColor,
-                maxLines: 1,
-                maxLength: FormConstants.categoryMaxLength,
-                keyboardType: TextInputType.text,
-                onSaved: (value) => model.form["category"] = value,
-                validator: (value) => model.validateCategoryField(value),
+              Text('category', style: Styles.textFieldHeader),
+              DropdownButton(
+                style: Styles.dropDownText,
+                value: _dropDownValue,
+                items: checklistItemCategoriesName.entries
+                    .map<DropdownMenuItem<String>>(
+                        (MapEntry<ChecklistItemCategories, String> e) =>
+                            DropdownMenuItem<String>(
+                              value: e.value,
+                              child: Text(e.value),
+                            ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() => _dropDownValue = value);
+                  model.form["category"] = value;
+                },
               ),
               UIHelper.verticalSpaceMedium,
               TextFormField(

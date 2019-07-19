@@ -21,7 +21,6 @@ class Checklist extends StatelessWidget {
             : ListView.builder(
                 itemCount: model.checklistItems.length + 1,
                 itemBuilder: (context, index) {
-                  print(index);
                   if (index == 0) {
                     var status = model.showCheckboxes ? 'Hide' : 'Show';
                     return FlatButton(
