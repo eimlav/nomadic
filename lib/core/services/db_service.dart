@@ -24,10 +24,10 @@ class DBService {
     );
   }
 
-  Future<void> insertChecklistItem(ChecklistItem checklistItem) async {
+  Future<int> insertChecklistItem(ChecklistItem checklistItem) async {
     final Database db = await database;
 
-    await db.insert(
+    return await db.insert(
       'checklist_items',
       checklistItem.toJson(),
       conflictAlgorithm: ConflictAlgorithm.replace,

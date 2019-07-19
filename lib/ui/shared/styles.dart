@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Styles {
-  static ThemeData appTheme =
-      ThemeData(primarySwatch: Colors.red, backgroundColor: Colors.grey[100]);
+  static ThemeData appTheme = ThemeData(
+    primaryColor: Colors.red,
+    accentColor: Colors.grey[100],
+  );
 
   static const horizontalPaddingDefault = 10.0;
   static const verticalPaddingDefault = 10.0;
@@ -71,6 +73,17 @@ class Styles {
     color: _textColorLink,
     fontWeight: FontWeight.w700,
     height: 1.2,
+  );
+
+  static final textFormFieldContrast = TextStyle(
+    color: _textColorDefaultContrast,
+  );
+
+  static final textButtonContrast = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeMedium,
+    color: Colors.red,
+    fontWeight: FontWeight.w700,
   );
 
   static Color _hexToColor(String code) {

@@ -24,5 +24,6 @@ class ChecklistModel extends BaseModel {
     _dbService.insertChecklistItem(testItem);
     checklistItems = await _dbService.getChecklistItems();
     setBusy(false);
+    notifyListeners();
   }
 }

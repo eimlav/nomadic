@@ -46,7 +46,10 @@ class _HomeViewState extends State<HomeView> {
         child: SizedBox(
             width: double.infinity,
             child: Row(children: [
-              Icon(icon),
+              Icon(
+                icon,
+                color: Theme.of(context).primaryColor,
+              ),
               Container(width: 10.0),
               Text(title, style: Styles.headerLarge, textAlign: TextAlign.left)
             ])));

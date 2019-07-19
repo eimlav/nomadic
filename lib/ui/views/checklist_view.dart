@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nomadic/core/viewmodels/views/checklist_view_model.dart';
 import 'package:nomadic/ui/shared/styles.dart';
 import 'package:nomadic/ui/views/base_widget.dart';
-import 'package:nomadic/ui/widgets/checklist.dart';
+import 'package:nomadic/ui/widgets/checklist_add_bottomsheet.dart';
 
 class ChecklistView extends StatelessWidget {
   @override
@@ -20,11 +20,7 @@ class ChecklistView extends StatelessWidget {
                 child: Container(
                     padding: Styles.screenContentPadding,
                     child: Column(
-                      children: <Widget>[
-                        Expanded(
-                          child: Checklist(),
-                        )
-                      ],
+                      children: <Widget>[Expanded(child: model.checklist)],
                     )),
               ),
             ));
@@ -44,20 +40,21 @@ class _ChecklistAddFloatingActionButtonState
   Widget build(BuildContext context) {
     return _show
         ? FloatingActionButton(
+            backgroundColor: Theme.of(context).primaryColor,
             child: Icon(
               Icons.add,
-              color: Theme.of(context).buttonColor,
+              color: Theme.of(context).accentColor,
             ),
             onPressed: () {
-              // var sheetController = showBottomSheet(
-              //     context: context,
-              //     builder: (context) => ChecklistViewBottomSheet());
+              var sheetController = showBottomSheet(
+                  context: context,
+                  builder: (context) => ChecklistAddBottomSheet());
 
-              // showButton(false);
+              showButton(false);
 
-              // sheetController.closed.then((value) {
-              //   showButton(true);
-              // });
+              sheetController.closed.then((value) {
+                showButton(true);
+              });
             },
           )
         : Container();
