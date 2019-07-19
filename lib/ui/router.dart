@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nomadic/core/constants/app_constants.dart';
 import 'package:nomadic/core/models/checklist_item.dart';
+import 'package:nomadic/ui/views/checklist_delete_view.dart';
 import 'package:nomadic/ui/views/checklist_edit_view.dart';
 import 'package:nomadic/ui/views/checklist_view.dart';
 import 'package:nomadic/ui/views/home_view.dart';
@@ -17,6 +18,10 @@ class Router {
         var checklistItem = settings.arguments as ChecklistItem;
         return MaterialPageRoute(
             builder: (_) => ChecklistEditView(checklistItem));
+      case RoutePaths.ChecklistDelete:
+        var checklistItem = settings.arguments as ChecklistItem;
+        return MaterialPageRoute(
+            builder: (_) => ChecklistDeleteView(checklistItem));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

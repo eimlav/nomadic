@@ -19,7 +19,7 @@ class ChecklistListItem extends StatelessWidget {
 
         checklistViewModel.showFloatingActionButton = false;
         checklistViewModel.showDeleteIcon = true;
-        checklistViewModel.currentChecklistItem = checklistItem.id;
+        checklistViewModel.currentChecklistItem = checklistItem;
 
         var sheetController = showBottomSheet(
             context: context,

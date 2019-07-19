@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nomadic/core/constants/app_constants.dart';
 import 'package:nomadic/core/viewmodels/views/checklist_view_model.dart';
 import 'package:nomadic/ui/shared/styles.dart';
 import 'package:nomadic/ui/views/base_widget.dart';
@@ -16,7 +17,13 @@ class ChecklistView extends StatelessWidget {
                   model.showDeleteIcon
                       ? IconButton(
                           icon: Icon(Icons.delete),
-                          onPressed: () => {},
+                          onPressed: () async {
+                            await Navigator.pushNamed(
+                              context,
+                              RoutePaths.ChecklistDelete,
+                              arguments: model.currentChecklistItem,
+                            );
+                          },
                         )
                       : Container(),
                 ],

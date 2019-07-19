@@ -21,20 +21,14 @@ class ChecklistViewModel extends BaseModel {
     notifyListeners();
   }
 
-  int _currentChecklistItem = 0;
+  ChecklistItem _currentChecklistItem = null;
 
-  int get currentChecklistItem => _currentChecklistItem;
+  ChecklistItem get currentChecklistItem => _currentChecklistItem;
 
-  set currentChecklistItem(int value) {
+  set currentChecklistItem(ChecklistItem value) {
     _currentChecklistItem = value;
     notifyListeners();
   }
 
   Checklist checklist = Checklist();
-
-  Future<bool> createChecklistItem(ChecklistItem checklistItem) async {
-    setBusy(true);
-
-    setBusy(false);
-  }
 }
