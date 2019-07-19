@@ -25,7 +25,7 @@ class ChecklistView extends StatelessWidget {
                             );
                           },
                         )
-                      : Container(),
+                      : Container()
                 ],
               ),
               floatingActionButton: model.showFloatingActionButton

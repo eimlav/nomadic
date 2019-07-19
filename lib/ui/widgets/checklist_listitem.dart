@@ -1,53 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:nomadic/core/models/checklist_item.dart';
 import 'package:nomadic/core/viewmodels/views/checklist_view_model.dart';
+import 'package:nomadic/core/viewmodels/widgets/checklist_listitem_model.dart';
+import 'package:nomadic/core/viewmodels/widgets/checklist_model.dart';
 import 'package:nomadic/ui/shared/defaults.dart';
 import 'package:nomadic/ui/shared/styles.dart';
 import 'package:nomadic/ui/shared/ui_helper.dart';
+import 'package:nomadic/ui/views/base_widget.dart';
 import 'package:nomadic/ui/widgets/checklist_view_bottomsheet.dart';
 import 'package:provider/provider.dart';
 
-class ChecklistListItem extends StatelessWidget {
+class ChecklistListItem extends StatefulWidget {
   final ChecklistItem checklistItem;
-  const ChecklistListItem(this.checklistItem);
+  final ChecklistModel checklistModel;
+
+  const ChecklistListItem(this.checklistItem, this.checklistModel);
+
+  @override
+  _ChecklistListItemState createState() => _ChecklistListItemState();
+}
+
+class _ChecklistListItemState extends State<ChecklistListItem> {
+  bool _checked = false;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        var checklistViewModel = Provider.of<ChecklistViewModel>(context);
+    return BaseWidget<ChecklistListItemModel>(
+        model: ChecklistListItemModel(),
+        builder: (context, model, child) => GestureDetector(
+              onTap: () async {
+                var checklistViewModel =
+                    Provider.of<ChecklistViewModel>(context);
 
-        checklistViewModel.showFloatingActionButton = false;
-        checklistViewModel.showDeleteIcon = true;
-        checklistViewModel.currentChecklistItem = checklistItem;
+                checklistViewModel.showFloatingActionButton = false;
+                checklistViewModel.showDeleteIcon = true;
+                checklistViewModel.currentChecklistItem = widget.checklistItem;
 
-        var sheetController = showBottomSheet(
-            context: context,
-            builder: (context) => ChecklistViewBottomSheet(this.checklistItem));
-        sheetController.closed.then((value) {
-          checklistViewModel.showFloatingActionButton = true;
-          checklistViewModel.showDeleteIcon = false;
-        });
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 5.0),
-        child: Row(
-          children: <Widget>[
-            _buildFirstSection(),
-            UIHelper.horizontalSpaceSmall,
-            Expanded(child: _buildSecondSection()),
-          ],
-        ),
-      ),
-    );
+                var sheetController = showBottomSheet(
+                    context: context,
+                    builder: (context) =>
+                        ChecklistViewBottomSheet(widget.checklistItem));
+                sheetController.closed.then((value) {
+                  checklistViewModel.showFloatingActionButton = true;
+                  checklistViewModel.showDeleteIcon = false;
+                });
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 5.0),
+                child: Row(
+                  children: <Widget>[
+                    widget.checklistModel.showCheckboxes
+                        ? Checkbox(
+                            checkColor: Theme.of(context).primaryColor,
+                            value: _checked,
+                            onChanged: (value) {
+                              setState(() => _checked = value);
+                              if (value) {
+                                Provider.of<ChecklistModel>(context)
+                                    .incrementChecklistCount();
+                              } else {
+                                Provider.of<ChecklistModel>(context)
+                                    .decrementChecklistCount();
+                              }
+                            })
+                        : Container(),
+                    _buildFirstSection(),
+                    UIHelper.horizontalSpaceSmall,
+                    Expanded(child: _buildSecondSection()),
+                  ],
+                ),
+              ),
+            ));
   }
 
   Widget _buildFirstSection() {
     return CircleAvatar(
       backgroundColor: Colors.grey[400],
       foregroundColor: Colors.white,
-      backgroundImage: this.checklistItem.hasPhotos()
-          ? AssetImage(this.checklistItem.getPhotos()[0])
+      backgroundImage: widget.checklistItem.hasPhotos()
+          ? AssetImage(widget.checklistItem.getPhotos()[0])
           : AssetImage(Defaults.placeholderImage),
       radius: 20.0,
     );
@@ -59,7 +90,7 @@ class ChecklistListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Text(this.checklistItem.name,
+          Text(widget.checklistItem.name,
               style: Styles.textDefault, overflow: TextOverflow.ellipsis),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -67,7 +98,7 @@ class ChecklistListItem extends StatelessWidget {
               _buildSecondSectionCameraIcon(),
               UIHelper.horizontalSpaceVerySmall,
               Text(
-                "${this.checklistItem.category} | x${this.checklistItem.quantity}",
+                "${widget.checklistItem.category} | x${widget.checklistItem.quantity}",
                 style: Styles.textSmall,
               ),
             ],
@@ -78,7 +109,7 @@ class ChecklistListItem extends StatelessWidget {
   }
 
   Widget _buildSecondSectionCameraIcon() {
-    if (this.checklistItem.hasPhotos())
+    if (widget.checklistItem.hasPhotos())
       return Icon(Icons.camera_alt, color: Colors.grey[400], size: 14.0);
     return Container();
   }

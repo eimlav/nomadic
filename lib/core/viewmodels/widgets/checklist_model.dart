@@ -10,6 +10,20 @@ class ChecklistModel extends BaseModel {
     @required DBService dbService,
   }) : _dbService = dbService;
 
+  int _checklistCount = 0;
+  int get checklistCount => _checklistCount;
+  set checklistCount(value) {
+    _checklistCount = value;
+    notifyListeners();
+  }
+
+  bool _showCheckboxes = false;
+  bool get showCheckboxes => _showCheckboxes;
+  set showCheckboxes(value) {
+    _showCheckboxes = value;
+    notifyListeners();
+  }
+
   List<ChecklistItem> checklistItems;
 
   Future getChecklistItems() async {
@@ -17,5 +31,22 @@ class ChecklistModel extends BaseModel {
     checklistItems = await _dbService.getChecklistItems();
     setBusy(false);
     notifyListeners();
+  }
+
+  void checklistMode(bool value) {
+    checklistCount = 0;
+    showCheckboxes = value;
+    notifyListeners();
+    print(value);
+  }
+
+  void incrementChecklistCount() {
+    checklistCount++;
+    print(checklistCount);
+  }
+
+  void decrementChecklistCount() {
+    checklistCount--;
+    print(checklistCount);
   }
 }
