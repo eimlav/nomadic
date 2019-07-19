@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nomadic/core/constants/app_constants.dart';
 import 'package:nomadic/core/constants/form_constants.dart';
 import 'package:nomadic/core/models/checklist_item.dart';
@@ -7,6 +6,7 @@ import 'package:nomadic/core/viewmodels/views/checklist_edit_view_model.dart';
 import 'package:nomadic/ui/shared/styles.dart';
 import 'package:nomadic/ui/shared/ui_helper.dart';
 import 'package:nomadic/ui/views/base_widget.dart';
+import 'package:nomadic/ui/widgets/submit_button.dart';
 import 'package:provider/provider.dart';
 
 class ChecklistEditView extends StatefulWidget {
@@ -23,19 +23,15 @@ class _ChecklistEditViewState extends State<ChecklistEditView> {
   Widget build(BuildContext context) {
     return BaseWidget<ChecklistEditViewModel>(
         model: ChecklistEditViewModel(dbService: Provider.of(context)),
-        builder: (context, model, child) => model.busy
-            ? Center(
-                child: SpinKitWave(color: Colors.red, size: 35.0),
-              )
-            : Scaffold(
-                backgroundColor: Theme.of(context).accentColor,
-                appBar: AppBar(
-                  title: Text('checklist'),
-                ),
-                body: SafeArea(
-                  child: _buildFormUI(context, model, child),
-                ),
-              ));
+        builder: (context, model, child) => Scaffold(
+              backgroundColor: Theme.of(context).accentColor,
+              appBar: AppBar(
+                title: Text('checklist'),
+              ),
+              body: SafeArea(
+                child: _buildFormUI(context, model, child),
+              ),
+            ));
   }
 
   @override
@@ -117,28 +113,16 @@ class _ChecklistEditViewState extends State<ChecklistEditView> {
                 validator: (value) => model.validateDescriptionField(value),
               ),
               UIHelper.verticalSpaceMedium,
-              Builder(
-                builder: (BuildContext context) {
-                  return FlatButton(
-                      color: Theme.of(context).primaryColor,
-                      textTheme: ButtonTextTheme.primary,
-                      splashColor: Theme.of(context).accentColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(7.5))),
-                      onPressed: () async {
-                        model.form['id'] = widget.checklistItem.id;
-                        await model.validateForm();
-                        // TODO: Fix this monstrosity.
-                        Navigator.of(this.context).pop(this.context);
-                        Navigator.of(this.context).pop(this.context);
-                        Navigator.of(this.context).pop(this.context);
-                        Navigator.of(this.context)
-                            .pushNamed(RoutePaths.Checklist);
-                        return;
-                      },
-                      child: Text('Save changes', style: Styles.textButton));
-                },
-              ),
+              SubmitButton('Save changes', () async {
+                model.form['id'] = widget.checklistItem.id;
+                return await model.validateForm();
+              }, postCallback: () {
+                // TODO: Fix this monstrosity.
+                Navigator.of(this.context).pop(this.context);
+                Navigator.of(this.context).pop(this.context);
+                Navigator.of(this.context).pop(this.context);
+                Navigator.of(this.context).pushNamed(RoutePaths.Checklist);
+              }),
             ],
           ),
         ));

@@ -41,7 +41,7 @@ class ChecklistAddBottomSheetModel extends BaseModel {
   }
 
   // Validate form.
-  Future<int> validateForm() async {
+  Future<bool> validateForm() async {
     setBusy(true);
 
     if (formKey.currentState.validate()) {
@@ -56,13 +56,14 @@ class ChecklistAddBottomSheetModel extends BaseModel {
         photos: '',
       );
 
-      var result = await _dbService.insertChecklistItem(checklistItem);
+      await _dbService.insertChecklistItem(checklistItem);
       setBusy(false);
-      return result;
+      return false;
     } else {
       autoValidate = true;
       notifyListeners();
       setBusy(false);
+      return true;
     }
   }
 }

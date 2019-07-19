@@ -40,7 +40,7 @@ class ChecklistEditViewModel extends BaseModel {
   }
 
   // Validate form.
-  Future<int> validateForm() async {
+  Future<bool> validateForm() async {
     setBusy(true);
 
     if (formKey.currentState.validate()) {
@@ -58,10 +58,12 @@ class ChecklistEditViewModel extends BaseModel {
 
       await _dbService.updateChecklistItem(checklistItem);
       setBusy(false);
+      return false;
     } else {
       autoValidate = true;
       notifyListeners();
       setBusy(false);
+      return true;
     }
   }
 }

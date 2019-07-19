@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nomadic/core/constants/app_constants.dart';
 import 'package:nomadic/core/constants/form_constants.dart';
 import 'package:nomadic/core/viewmodels/widgets/checklist_add_bottomsheet_model.dart';
 import 'package:nomadic/ui/shared/styles.dart';
 import 'package:nomadic/ui/shared/ui_helper.dart';
 import 'package:nomadic/ui/views/base_widget.dart';
+import 'package:nomadic/ui/widgets/submit_button.dart';
 import 'package:provider/provider.dart';
 
 class ChecklistAddBottomSheet extends StatefulWidget {
@@ -21,11 +21,8 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
   Widget build(BuildContext context) {
     return BaseWidget<ChecklistAddBottomSheetModel>(
         model: ChecklistAddBottomSheetModel(dbService: Provider.of(context)),
-        builder: (context, model, child) => model.busy
-            ? Center(
-                child: SpinKitWave(color: Colors.red, size: 35.0),
-              )
-            : _buildFormUI(context, model, child));
+        builder: (context, model, child) =>
+            _buildFormUI(context, model, child));
   }
 
   @override
@@ -105,30 +102,20 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
                 validator: (value) => model.validateDescriptionField(value),
               ),
               UIHelper.verticalSpaceMedium,
-              Builder(
-                builder: (BuildContext context) {
-                  return FlatButton(
-                      color: Colors.grey[200],
-                      textTheme: ButtonTextTheme.accent,
-                      splashColor: Theme.of(context).primaryColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(7.5))),
-                      onPressed: () async {
-                        var result = await model.validateForm();
-                        if (result >= 0 && this.mounted) {
-                          // TODO: Fix this fucking horrible hack that keeps me up at night.
-                          Navigator.of(this.context).pop(this.context);
-                          Navigator.of(this.context).pop(this.context);
-                          Navigator.of(this.context)
-                              .pushNamed(RoutePaths.Checklist);
-                          return;
-                        } else {
-                          print('error occured adding ChecklistItem');
-                        }
-                      },
-                      child: Text('Add', style: Styles.textButtonContrast));
+              SubmitButton(
+                'Add',
+                () async {
+                  return await model.validateForm();
                 },
-              ),
+                postCallback: () {
+                  // TODO: Fix this fucking horrible hack that keeps me up at night.
+                  Navigator.of(this.context).pop(this.context);
+                  Navigator.of(this.context).pop(this.context);
+                  Navigator.of(this.context).pushNamed(RoutePaths.Checklist);
+                  return;
+                },
+                theme: true,
+              )
             ],
           ),
         ));

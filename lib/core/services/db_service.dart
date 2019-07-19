@@ -43,7 +43,6 @@ class DBService {
       where: "id = ?",
       whereArgs: [checklistItem.id],
     );
-    print(result);
   }
 
   Future<void> deleteChecklistItem(int id) async {
