@@ -14,14 +14,6 @@ class ChecklistModel extends BaseModel {
 
   Future getChecklistItems() async {
     setBusy(true);
-    var testItem = ChecklistItem(
-        id: 0,
-        name: 'Rucksack',
-        description: 'A big rucksack',
-        category: 'Luggage',
-        quantity: 1,
-        photos: '');
-    _dbService.insertChecklistItem(testItem);
     checklistItems = await _dbService.getChecklistItems();
     setBusy(false);
     notifyListeners();

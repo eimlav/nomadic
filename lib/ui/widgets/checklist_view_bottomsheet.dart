@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nomadic/core/constants/app_constants.dart';
 import 'package:nomadic/core/models/checklist_item.dart';
 import 'package:nomadic/ui/shared/styles.dart';
 import 'package:nomadic/ui/shared/ui_helper.dart';
@@ -111,6 +112,25 @@ class _ChecklistViewBottomSheetState extends State<ChecklistViewBottomSheet> {
                     ],
                   )
                 : Container(),
+            UIHelper.verticalSpaceMedium,
+            Builder(
+              builder: (BuildContext context) {
+                return FlatButton(
+                    color: Colors.grey[200],
+                    textTheme: ButtonTextTheme.accent,
+                    splashColor: Theme.of(context).primaryColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(7.5))),
+                    onPressed: () async {
+                      await Navigator.pushNamed(
+                        context,
+                        RoutePaths.ChecklistEdit,
+                        arguments: widget.checklistItem,
+                      );
+                    },
+                    child: Text('Edit', style: Styles.textButtonContrast));
+              },
+            ),
           ],
         ));
   }

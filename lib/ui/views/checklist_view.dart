@@ -12,6 +12,14 @@ class ChecklistView extends StatelessWidget {
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
                 title: Text('checklist'),
+                actions: <Widget>[
+                  model.showDeleteIcon
+                      ? IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () => {},
+                        )
+                      : Container(),
+                ],
               ),
               floatingActionButton: model.showFloatingActionButton
                   ? ChecklistAddFloatingActionButton()

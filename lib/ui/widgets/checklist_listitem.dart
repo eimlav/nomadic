@@ -18,12 +18,15 @@ class ChecklistListItem extends StatelessWidget {
         var checklistViewModel = Provider.of<ChecklistViewModel>(context);
 
         checklistViewModel.showFloatingActionButton = false;
+        checklistViewModel.showDeleteIcon = true;
+        checklistViewModel.currentChecklistItem = checklistItem.id;
 
         var sheetController = showBottomSheet(
             context: context,
             builder: (context) => ChecklistViewBottomSheet(this.checklistItem));
         sheetController.closed.then((value) {
           checklistViewModel.showFloatingActionButton = true;
+          checklistViewModel.showDeleteIcon = false;
         });
       },
       child: Container(

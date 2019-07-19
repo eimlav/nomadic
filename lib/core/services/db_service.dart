@@ -34,6 +34,28 @@ class DBService {
     );
   }
 
+  Future<void> updateChecklistItem(ChecklistItem checklistItem) async {
+    final db = await database;
+
+    var result = await db.update(
+      'checklist_items',
+      checklistItem.toJson(),
+      where: "id = ?",
+      whereArgs: [checklistItem.id],
+    );
+    print(result);
+  }
+
+  Future<void> deleteChecklistItem(int id) async {
+    final db = await database;
+
+    await db.delete(
+      'checklist_items',
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
+
   Future<List<ChecklistItem>> getChecklistItems() async {
     final Database db = await database;
 

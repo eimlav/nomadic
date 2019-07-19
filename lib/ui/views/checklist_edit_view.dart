@@ -2,30 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nomadic/core/constants/app_constants.dart';
 import 'package:nomadic/core/constants/form_constants.dart';
-import 'package:nomadic/core/viewmodels/widgets/checklist_add_bottomsheet_model.dart';
+import 'package:nomadic/core/models/checklist_item.dart';
+import 'package:nomadic/core/viewmodels/views/checklist_edit_view_model.dart';
 import 'package:nomadic/ui/shared/styles.dart';
 import 'package:nomadic/ui/shared/ui_helper.dart';
 import 'package:nomadic/ui/views/base_widget.dart';
 import 'package:provider/provider.dart';
 
-class ChecklistAddBottomSheet extends StatefulWidget {
-  ChecklistAddBottomSheet();
+class ChecklistEditView extends StatefulWidget {
+  final ChecklistItem checklistItem;
+
+  ChecklistEditView(this.checklistItem);
 
   @override
-  _ChecklistAddBottomSheetState createState() =>
-      _ChecklistAddBottomSheetState();
+  _ChecklistEditViewState createState() => _ChecklistEditViewState();
 }
 
-class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
+class _ChecklistEditViewState extends State<ChecklistEditView> {
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<ChecklistAddBottomSheetModel>(
-        model: ChecklistAddBottomSheetModel(dbService: Provider.of(context)),
+    return BaseWidget<ChecklistEditViewModel>(
+        model: ChecklistEditViewModel(dbService: Provider.of(context)),
         builder: (context, model, child) => model.busy
             ? Center(
                 child: SpinKitWave(color: Colors.red, size: 35.0),
               )
-            : _buildFormUI(context, model, child));
+            : Scaffold(
+                backgroundColor: Theme.of(context).accentColor,
+                appBar: AppBar(
+                  title: Text('checklist'),
+                ),
+                body: SafeArea(
+                  child: _buildFormUI(context, model, child),
+                ),
+              ));
   }
 
   @override
@@ -34,24 +44,24 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
   }
 
   Widget _buildFormUI(
-      BuildContext context, ChecklistAddBottomSheetModel model, Widget child) {
+      BuildContext context, ChecklistEditViewModel model, Widget child) {
     return Form(
         key: model.formKey,
         autovalidate: model.autoValidate,
         child: Container(
           padding: Styles.screenContentPadding,
-          color: Colors.red,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               TextFormField(
-                style: Styles.textFormFieldInputContrast,
+                initialValue: widget.checklistItem.name,
+                style: Styles.textFormFieldInput,
                 decoration: InputDecoration(
                     labelText: 'name',
-                    labelStyle: Styles.textFormFieldContrast,
-                    errorStyle: Styles.textFormFieldContrast,
-                    counterStyle: Styles.textFormFieldContrast),
-                cursorColor: Colors.white,
+                    labelStyle: Styles.textFormField,
+                    errorStyle: Styles.textFormField,
+                    counterStyle: Styles.textFormField),
+                cursorColor: Theme.of(context).primaryColor,
                 maxLines: 1,
                 maxLength: FormConstants.nameMaxLength,
                 keyboardType: TextInputType.text,
@@ -60,14 +70,14 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
               ),
               UIHelper.verticalSpaceMedium,
               TextFormField(
-                style: Styles.textFormFieldInputContrast,
+                initialValue: widget.checklistItem.quantity.toString(),
+                style: Styles.textFormFieldInput,
                 decoration: InputDecoration(
                     labelText: 'quantity',
-                    labelStyle: Styles.textFormFieldContrast,
-                    errorStyle: Styles.textFormFieldContrast,
-                    counterStyle: Styles.textFormFieldContrast),
-                cursorColor: Colors.white,
-                initialValue: '1',
+                    labelStyle: Styles.textFormField,
+                    errorStyle: Styles.textFormField,
+                    counterStyle: Styles.textFormField),
+                cursorColor: Theme.of(context).primaryColor,
                 maxLines: 1,
                 maxLength: FormConstants.maxQuantity.toString().length,
                 keyboardType: TextInputType.number,
@@ -76,13 +86,14 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
               ),
               UIHelper.verticalSpaceMedium,
               TextFormField(
-                style: Styles.textFormFieldInputContrast,
+                initialValue: widget.checklistItem.category,
+                style: Styles.textFormFieldInput,
                 decoration: InputDecoration(
                     labelText: 'category',
-                    labelStyle: Styles.textFormFieldContrast,
-                    errorStyle: Styles.textFormFieldContrast,
-                    counterStyle: Styles.textFormFieldContrast),
-                cursorColor: Colors.white,
+                    labelStyle: Styles.textFormField,
+                    errorStyle: Styles.textFormField,
+                    counterStyle: Styles.textFormField),
+                cursorColor: Theme.of(context).primaryColor,
                 maxLines: 1,
                 maxLength: FormConstants.categoryMaxLength,
                 keyboardType: TextInputType.text,
@@ -91,13 +102,14 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
               ),
               UIHelper.verticalSpaceMedium,
               TextFormField(
-                style: Styles.textFormFieldInputContrast,
+                initialValue: widget.checklistItem.description,
+                style: Styles.textFormFieldInput,
                 decoration: InputDecoration(
                     labelText: 'description',
-                    labelStyle: Styles.textFormFieldContrast,
-                    errorStyle: Styles.textFormFieldContrast,
-                    counterStyle: Styles.textFormFieldContrast),
-                cursorColor: Colors.white,
+                    labelStyle: Styles.textFormField,
+                    errorStyle: Styles.textFormField,
+                    counterStyle: Styles.textFormField),
+                cursorColor: Theme.of(context).primaryColor,
                 maxLines: 1,
                 maxLength: FormConstants.descriptionMaxLength,
                 keyboardType: TextInputType.text,
@@ -108,25 +120,23 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
               Builder(
                 builder: (BuildContext context) {
                   return FlatButton(
-                      color: Colors.grey[200],
-                      textTheme: ButtonTextTheme.accent,
-                      splashColor: Theme.of(context).primaryColor,
+                      color: Theme.of(context).primaryColor,
+                      textTheme: ButtonTextTheme.primary,
+                      splashColor: Theme.of(context).accentColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(7.5))),
                       onPressed: () async {
-                        var result = await model.validateForm();
-                        if (result >= 0 && this.mounted) {
-                          // TODO: Fix this fucking horrible hack that keeps me up at night.
-                          Navigator.of(this.context).pop(this.context);
-                          Navigator.of(this.context).pop(this.context);
-                          Navigator.of(this.context)
-                              .pushNamed(RoutePaths.Checklist);
-                          return;
-                        } else {
-                          print('error occured adding ChecklistItem');
-                        }
+                        model.form['id'] = widget.checklistItem.id;
+                        await model.validateForm();
+                        // TODO: Fix this monstrosity.
+                        Navigator.of(this.context).pop(this.context);
+                        Navigator.of(this.context).pop(this.context);
+                        Navigator.of(this.context).pop(this.context);
+                        Navigator.of(this.context)
+                            .pushNamed(RoutePaths.Checklist);
+                        return;
                       },
-                      child: Text('Add', style: Styles.textButtonContrast));
+                      child: Text('Save changes', style: Styles.textButton));
                 },
               ),
             ],

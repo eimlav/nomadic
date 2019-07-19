@@ -24,6 +24,8 @@ class Styles {
   static final Color _textColorDefaultContrast = _hexToColor('fffffe');
   static final Color _textColorLinkConstrast = _hexToColor('eee8fc');
 
+  static final Color _textColorFormDefault = Colors.red;
+
   static final String _fontNameDefault = 'Montserrat';
 
   static final headerLarge = TextStyle(
@@ -45,18 +47,18 @@ class Styles {
     height: 1.2,
   );
 
-  static final textSmall = TextStyle(
-    fontFamily: _fontNameDefault,
-    fontSize: _textSizeSmall,
-    color: _textColorFaint,
-    height: 1.2,
-  );
-
   static final textDefaultContrast = TextStyle(
     fontFamily: _fontNameDefault,
     fontSize: _textSizeMedium,
     fontWeight: FontWeight.bold,
     color: _textColorDefaultContrast,
+    height: 1.2,
+  );
+
+  static final textSmall = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeSmall,
+    color: _textColorFaint,
     height: 1.2,
   );
 
@@ -75,8 +77,35 @@ class Styles {
     height: 1.2,
   );
 
+  static final textFormField = TextStyle(
+    color: _textColorFormDefault,
+  );
+
+  static final textFormFieldInput = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeMedium,
+    fontWeight: FontWeight.bold,
+    color: _textColorDefault,
+    height: 1.2,
+  );
+
+  static final textFormFieldInputContrast = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeMedium,
+    fontWeight: FontWeight.bold,
+    color: _textColorDefaultContrast,
+    height: 1.2,
+  );
+
   static final textFormFieldContrast = TextStyle(
     color: _textColorDefaultContrast,
+  );
+
+  static final textButton = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeMedium,
+    color: appTheme.accentColor,
+    fontWeight: FontWeight.w700,
   );
 
   static final textButtonContrast = TextStyle(
