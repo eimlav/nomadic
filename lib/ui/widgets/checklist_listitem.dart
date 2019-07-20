@@ -52,15 +52,18 @@ class _ChecklistListItemState extends State<ChecklistListItem> {
                     widget.checklistModel.showCheckboxes
                         ? Checkbox(
                             checkColor: Theme.of(context).primaryColor,
-                            value: _checked,
+                            value: Provider.of<ChecklistModel>(context)
+                                .isChecklistItemChecked(
+                                    widget.checklistItem.id),
                             onChanged: (value) {
-                              setState(() => _checked = value);
                               if (value) {
                                 Provider.of<ChecklistModel>(context)
-                                    .incrementChecklistCount();
+                                    .checkChecklistItem(
+                                        widget.checklistItem.id);
                               } else {
                                 Provider.of<ChecklistModel>(context)
-                                    .decrementChecklistCount();
+                                    .uncheckChecklistItem(
+                                        widget.checklistItem.id);
                               }
                             })
                         : Container(),

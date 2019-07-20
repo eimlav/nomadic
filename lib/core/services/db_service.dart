@@ -58,7 +58,21 @@ class DBService {
   Future<List<ChecklistItem>> getChecklistItems() async {
     final Database db = await database;
 
-    final List<Map<String, dynamic>> maps = await db.query('checklist_items');
+    final List<Map<String, dynamic>> maps =
+        await db.query('checklist_items', orderBy: 'name ASC');
+
+    return List.generate(maps.length, (i) {
+      return ChecklistItem.fromJson(maps[i]);
+    });
+  }
+
+  Future<List<ChecklistItem>> getChecklistItemsFiltered(
+      String column, List<dynamic> values) async {
+    final Database db = await database;
+
+    values = values.map((value) => "'$value'").toList();
+    final List<Map<String, dynamic>> maps = await db.query('checklist_items',
+        where: "$column in (${values.join(',')})", orderBy: 'name ASC');
 
     return List.generate(maps.length, (i) {
       return ChecklistItem.fromJson(maps[i]);

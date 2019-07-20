@@ -34,6 +34,12 @@ class Styles {
     color: _textColorStrong,
   );
 
+  static final headerLargeContrast = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeLarge,
+    color: appTheme.accentColor,
+  );
+
   static EdgeInsets screenContentPadding = EdgeInsets.only(
     left: Styles.horizontalPaddingDefault,
     right: Styles.horizontalPaddingDefault,
@@ -131,6 +137,13 @@ class Styles {
   static final textButtonContrast = TextStyle(
     fontFamily: _fontNameDefault,
     fontSize: _textSizeMedium,
+    color: Colors.red,
+    fontWeight: FontWeight.w700,
+  );
+
+  static final textFilter = TextStyle(
+    fontFamily: _fontNameDefault,
+    fontSize: _textSizeDefault,
     color: Colors.red,
     fontWeight: FontWeight.w700,
   );

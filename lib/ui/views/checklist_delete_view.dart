@@ -23,7 +23,6 @@ class _ChecklistDeleteViewState extends State<ChecklistDeleteView> {
     return BaseWidget<ChecklistDeleteViewModel>(
         model: ChecklistDeleteViewModel(dbService: Provider.of(context)),
         builder: (context, model, child) => Scaffold(
-              backgroundColor: Theme.of(context).primaryColor,
               appBar: AppBar(
                 title: Text('checklist'),
               ),
@@ -45,7 +44,7 @@ class _ChecklistDeleteViewState extends State<ChecklistDeleteView> {
               'Are you sure you wish to delete "${widget.checklistItem.name}"?',
               maxLines: 2,
               textAlign: TextAlign.center,
-              style: Styles.textDefaultContrast,
+              style: Styles.textButtonContrast,
             ),
             UIHelper.verticalSpaceMedium,
             Row(
