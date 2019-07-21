@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nomadic/core/constants/app_constants.dart';
 import 'package:nomadic/ui/shared/styles.dart';
+import 'package:nomadic/ui/widgets/currencies.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -32,9 +33,10 @@ class _HomeViewState extends State<HomeView> {
 
   List<Widget> _buildScrollViewItems() {
     return [
+      Currencies(),
       _buildListButton('Checklist', Icons.list, () {
         Navigator.pushNamed(context, RoutePaths.Checklist);
-      })
+      }),
     ];
   }
 

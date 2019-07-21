@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class UIHelper {
   static const double _VerticalSpaceVerySmall = 5.0;
@@ -28,4 +29,18 @@ class UIHelper {
       SizedBox(width: _HorizontalSpaceMedium);
   static const Widget horizontalSpaceLarge =
       SizedBox(width: _HorizontalSpaceLarge);
+
+  static final dateTimeFormat = DateFormat('HH:mm dd-MM-yyyy');
+  static final timeFormat = DateFormat('HH:mm');
+
+  static String formatDateTime(DateTime dateTime) {
+    if (dateTime.isAfter(
+            DateTime(dateTime.year, dateTime.month, dateTime.day, 0, 0)) &&
+        dateTime.isBefore(
+            DateTime(dateTime.year, dateTime.month, dateTime.day, 23, 59))) {
+      return timeFormat.format(dateTime);
+    } else {
+      return dateTimeFormat.format(dateTime);
+    }
+  }
 }

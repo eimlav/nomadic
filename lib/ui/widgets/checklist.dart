@@ -5,6 +5,7 @@ import 'package:nomadic/ui/shared/styles.dart';
 import 'package:nomadic/ui/views/base_widget.dart';
 import 'package:nomadic/ui/widgets/checklist_filter.dart';
 import 'package:nomadic/ui/widgets/checklist_listitem.dart';
+import 'package:nomadic/ui/widgets/currencies.dart';
 import 'package:provider/provider.dart';
 
 class Checklist extends StatefulWidget {
@@ -75,15 +76,12 @@ class _ChecklistState extends State<Checklist> {
                 style: Styles.textFormField,
               ),
               onPressed: () {
-                if (this._showFilterDialog == true) {
-                  // model.getChecklistItems();
-                  // model.filters = [];
-                }
                 setState(
                     () => this._showFilterDialog = !this._showFilterDialog);
               })
         ],
       ),
+      Currencies(),
       _showFilterDialog
           ? ChecklistFilter()
           : Container(), // ChecklistFilter will reinstantiate when busy is set :(
