@@ -38,7 +38,8 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
     return Form(
         key: model.formKey,
         autovalidate: model.autoValidate,
-        child: Container(
+        child: SingleChildScrollView(
+            child: Container(
           padding: Styles.screenContentPadding,
           color: Colors.red,
           child: Column(
@@ -101,7 +102,7 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
                     errorStyle: Styles.textFormFieldContrast,
                     counterStyle: Styles.textFormFieldContrast),
                 cursorColor: Colors.white,
-                maxLines: 1,
+                maxLines: 5,
                 maxLength: FormConstants.descriptionMaxLength,
                 keyboardType: TextInputType.text,
                 onSaved: (value) => model.form["description"] = value,
@@ -124,6 +125,6 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
               )
             ],
           ),
-        ));
+        )));
   }
 }
