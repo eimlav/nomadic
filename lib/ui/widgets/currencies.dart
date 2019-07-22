@@ -94,8 +94,11 @@ class _CurrenciesState extends State<Currencies> {
 
   Widget _buildExchangeRates(BuildContext context, CurrenciesModel model) {
     List<Widget> exchangeRateWidgets = [];
+    bool showBaseCurrency = true;
     model.exchangeRates.forEach((key, value) {
-      exchangeRateWidgets.add(_buildExchangeRate(model, key));
+      exchangeRateWidgets.add(
+          _buildExchangeRate(model, key, showBaseCurrency: showBaseCurrency));
+      showBaseCurrency = false;
     });
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -103,16 +106,19 @@ class _CurrenciesState extends State<Currencies> {
     );
   }
 
-  Widget _buildExchangeRate(CurrenciesModel model, String currency) {
+  Widget _buildExchangeRate(CurrenciesModel model, String currency,
+      {bool showBaseCurrency = false}) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(
-            '1 ${model.baseCurrency} equals ',
-            style: Styles.textSmall,
-          ),
+          showBaseCurrency
+              ? Text(
+                  '1 ${model.baseCurrency} equals ',
+                  style: Styles.textSmall,
+                )
+              : Container(),
           Text('${model.exchangeRates[currency]} $currency',
               style: Styles.textDefault),
         ],

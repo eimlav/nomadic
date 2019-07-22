@@ -4,16 +4,26 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBService {
-  Future<Database> database;
+  Future<Database> _database;
+  bool _initialised = false;
 
   DBService() {
     _init();
   }
 
+  Future<Database> get database async {
+    if (_initialised) {
+      return _database;
+    } else {
+      await Future.delayed(Duration(seconds: 1));
+      _initialised = true;
+      return _database;
+    }
+  }
+
   Future<void> _init() async {
     var dbPath = await getDatabasesPath();
-
-    this.database = openDatabase(
+    _database = openDatabase(
       join(dbPath, 'nomadic_database.db'),
       onCreate: (db, version) async {
         var batch = db.batch();
@@ -40,7 +50,7 @@ class DBService {
   Future<void> updateChecklistItem(ChecklistItem checklistItem) async {
     final db = await database;
 
-    var result = await db.update(
+    await db.update(
       'checklist_items',
       checklistItem.toJson(),
       where: "id = ?",
