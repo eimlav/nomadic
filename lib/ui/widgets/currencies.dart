@@ -17,6 +17,19 @@ class Currencies extends StatefulWidget {
 // In order to accomodate more flexiblity in the future, a number of changes will need to
 // be made.
 class _CurrenciesState extends State<Currencies> {
+  Map<String, Function> menuChoices = {
+    'Add currency': (BuildContext context) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text("'Add currency' not implemented."),
+      ));
+    },
+    'Remove currency': (BuildContext context) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text("'Remove currency' not implemented."),
+      ));
+    },
+  };
+
   @override
   Widget build(BuildContext context) {
     return BaseWidget<CurrenciesModel>(
@@ -34,12 +47,33 @@ class _CurrenciesState extends State<Currencies> {
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(
-                            'Currencies',
-                            style: Styles.textCurrenciesHeader,
-                            textAlign: TextAlign.left,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                'Currencies',
+                                style: Styles.textCurrenciesHeader,
+                                textAlign: TextAlign.left,
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: PopupMenuButton(
+                                    itemBuilder: (_) {
+                                      List<PopupMenuItem> items = [];
+                                      menuChoices.forEach((value, callback) {
+                                        items.add(PopupMenuItem(
+                                            enabled: false,
+                                            child: Text(value,
+                                                style: Styles.textDefault),
+                                            value: value));
+                                      });
+                                      return items;
+                                    },
+                                    child: Icon(Icons.menu,
+                                        color: Theme.of(context).primaryColor),
+                                  )),
+                            ],
                           ),
-                          UIHelper.verticalSpaceSmall,
                           model.exchangeRates.isEmpty
                               ? Text('Unable to fetch exchange rates.',
                                   style: Styles.textDefault)
