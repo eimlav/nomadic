@@ -20,8 +20,10 @@ class _CurrenciesState extends State<Currencies> {
   @override
   Widget build(BuildContext context) {
     return BaseWidget<CurrenciesModel>(
-        model: CurrenciesModel(dbService: Provider.of(context)),
-        onModelReady: (model) => model.fetchCurrencies(),
+        model: CurrenciesModel(
+            dbService: Provider.of(context),
+            connectivityService: Provider.of(context)),
+        onModelReady: (model) async => await model.fetchCurrencies(),
         builder: (context, model, child) => Card(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -43,9 +45,9 @@ class _CurrenciesState extends State<Currencies> {
                                   style: Styles.textDefault)
                               : _buildExchangeRates(context, model),
                           UIHelper.verticalSpaceVerySmall,
-                          model.lastUpdate != null
+                          model.updatedAt != null
                               ? Text(
-                                  'last updated ${UIHelper.formatDateTime(model.lastUpdate.toLocal())}',
+                                  'last updated ${UIHelper.formatDateTime(model.updatedAt.toLocal())}',
                                   style: Styles.textSmall,
                                   textAlign: TextAlign.right,
                                 )
@@ -58,7 +60,6 @@ class _CurrenciesState extends State<Currencies> {
 
   Widget _buildExchangeRates(BuildContext context, CurrenciesModel model) {
     List<Widget> exchangeRateWidgets = [];
-    print('building rwijasd');
     model.exchangeRates.forEach((key, value) {
       exchangeRateWidgets.add(_buildExchangeRate(model, key));
     });

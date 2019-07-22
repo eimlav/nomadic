@@ -4,6 +4,7 @@ import 'package:nomadic/core/viewmodels/views/checklist_view_model.dart';
 import 'package:nomadic/ui/shared/styles.dart';
 import 'package:nomadic/ui/views/base_widget.dart';
 import 'package:nomadic/ui/widgets/checklist_add_bottomsheet.dart';
+import 'package:nomadic/ui/widgets/currencies.dart';
 
 class ChecklistView extends StatelessWidget {
   @override
@@ -35,7 +36,10 @@ class ChecklistView extends StatelessWidget {
                 child: Container(
                     padding: Styles.screenContentPadding,
                     child: Column(
-                      children: <Widget>[Expanded(child: model.checklist)],
+                      children: <Widget>[
+                        Currencies(),
+                        Expanded(child: model.checklist)
+                      ],
                     )),
               ),
             ));
