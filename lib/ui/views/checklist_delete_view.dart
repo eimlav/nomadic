@@ -56,7 +56,7 @@ class _ChecklistDeleteViewState extends State<ChecklistDeleteView> {
                 }, theme: true),
                 UIHelper.horizontalSpaceMedium,
                 SubmitButton('Delete', () async {
-                  return model.deleteChecklistItem(widget.checklistItem.id);
+                  return model.deleteChecklistItem(widget.checklistItem);
                 }, postCallback: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();
