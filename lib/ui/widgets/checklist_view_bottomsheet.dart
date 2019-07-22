@@ -81,17 +81,16 @@ class _ChecklistViewBottomSheetState extends State<ChecklistViewBottomSheet> {
                 Container(
                     width: headingWidth,
                     child: Text('photos', style: Styles.textSmallContrast)),
-                Expanded(
-                    child: InkWell(
-                        onTap: () => {
-                              Navigator.pushNamed(
-                                  context, RoutePaths.ChecklistPhoto,
-                                  arguments: widget.checklistItem)
-                            },
-                        child: Text("View",
-                            style: Styles.textLink,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.right))),
+                FlatButton(
+                    onPressed: () => {
+                          Navigator.pushNamed(
+                              context, RoutePaths.ChecklistPhoto,
+                              arguments: widget.checklistItem)
+                        },
+                    child: Text("View/Edit",
+                        style: Styles.textLink,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.right)),
               ],
             ),
             UIHelper.verticalSpaceMedium,

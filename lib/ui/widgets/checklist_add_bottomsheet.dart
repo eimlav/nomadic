@@ -45,6 +45,11 @@ class _ChecklistAddBottomSheetState extends State<ChecklistAddBottomSheet> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              Text(
+                'add checklist item',
+                style: Styles.headerLargeContrast,
+                textAlign: TextAlign.center,
+              ),
               TextFormField(
                 style: Styles.textFormFieldInputContrast,
                 decoration: InputDecoration(
