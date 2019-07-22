@@ -11,7 +11,6 @@ class DBService {
   }
 
   Future<void> _init() async {
-    print('INIT');
     var dbPath = await getDatabasesPath();
 
     await deleteDatabase(dbPath);
@@ -19,15 +18,12 @@ class DBService {
     this.database = openDatabase(
       join(dbPath, 'nomadic_database.db'),
       onCreate: (db, version) async {
-        print('STARTING BATCH');
         var batch = db.batch();
         batch.execute(
             "CREATE TABLE IF NOT EXISTS checklist_items(id INTEGER PRIMARY KEY, name TEXT, description TEXT, category TEXT, quantity INTEGER, photos TEXT)");
         batch.execute(
             "CREATE TABLE IF NOT EXISTS exchange_rates(base_currency TEXT, exchange_currency TEXT, rate REAL, updated_at TEXT)");
         return await batch.commit(noResult: true);
-        // return db.execute(
-        //     "CREATE TABLE IF NOT EXISTS checklist_items(id INTEGER PRIMARY KEY, name TEXT, description TEXT, category TEXT, quantity INTEGER, photos TEXT);CREATE TABLE IF NOT EXISTS exchange_rates(base_currency TEXT, exchange_currency TEXT, rate REAL, updated_at TEXT)");
       },
       version: 1,
     );

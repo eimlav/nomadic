@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:nomadic/core/models/checklist_item.dart';
 import 'package:nomadic/core/services/db_service.dart';
 import 'package:nomadic/core/viewmodels/base_model.dart';
@@ -21,7 +22,11 @@ class ChecklistPhotoViewModel extends BaseModel {
       path = value.path;
     });
     String photoName = basename(photo.path);
-    await photo.copy('$path/$photoName');
+    await FlutterImageCompress.compressAndGetFile(
+      photo.absolute.path,
+      '$path/$photoName',
+      quality: 75,
+    );
 
     // Save photo path to db
     List<String> updatedPhotos =
