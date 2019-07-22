@@ -21,6 +21,10 @@
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
+	<string>NSPhotoLibraryUsageDescription</string>
+	<key>Add photos to checklist items.</key>
+	<string>NSCameraUsageDescription</string>
+	<key>Capture photos for checklist items.</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

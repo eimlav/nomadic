@@ -83,7 +83,11 @@ class _ChecklistViewBottomSheetState extends State<ChecklistViewBottomSheet> {
                     child: Text('photos', style: Styles.textSmallContrast)),
                 Expanded(
                     child: InkWell(
-                        onTap: () => {},
+                        onTap: () => {
+                              Navigator.pushNamed(
+                                  context, RoutePaths.ChecklistPhoto,
+                                  arguments: widget.checklistItem)
+                            },
                         child: Text("View",
                             style: Styles.textLink,
                             overflow: TextOverflow.ellipsis,
