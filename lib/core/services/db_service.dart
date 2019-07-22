@@ -13,8 +13,6 @@ class DBService {
   Future<void> _init() async {
     var dbPath = await getDatabasesPath();
 
-    await deleteDatabase(dbPath);
-
     this.database = openDatabase(
       join(dbPath, 'nomadic_database.db'),
       onCreate: (db, version) async {
