@@ -77,13 +77,13 @@ class _ChecklistPhotoViewState extends State<ChecklistPhotoView> {
     if (widget.checklistItem.photos != null &&
         widget.checklistItem.photos.isNotEmpty) {
       widget.checklistItem.photos.split(',').forEach((photo) {
-        pageOptions.add(getPhotoViewGalleryPageOptions(photo));
+        pageOptions.add(_getPhotoViewGalleryPageOptions(photo));
       });
     }
 
     if (widget.checklistItem.photos == null ||
         widget.checklistItem.photos.isEmpty)
-      pageOptions.add(getPhotoViewGalleryPageOptionsEmpty());
+      pageOptions.add(_getPhotoViewGalleryPageOptionsEmpty());
 
     return Container(
         height: MediaQuery.of(context).size.height * 0.4,
@@ -96,13 +96,13 @@ class _ChecklistPhotoViewState extends State<ChecklistPhotoView> {
         ));
   }
 
-  PhotoViewGalleryPageOptions getPhotoViewGalleryPageOptions(String imageURL) {
+  PhotoViewGalleryPageOptions _getPhotoViewGalleryPageOptions(String imageURL) {
     return PhotoViewGalleryPageOptions(
       imageProvider: AssetImage(imageURL),
     );
   }
 
-  PhotoViewGalleryPageOptions getPhotoViewGalleryPageOptionsEmpty() {
+  PhotoViewGalleryPageOptions _getPhotoViewGalleryPageOptionsEmpty() {
     return PhotoViewGalleryPageOptions(
       imageProvider: AssetImage('assets/images/no_photos.png'),
     );
