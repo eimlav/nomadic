@@ -126,6 +126,9 @@ class _ChecklistEditViewState extends State<ChecklistEditView> {
               UIHelper.verticalSpaceMedium,
               SubmitButton('Save changes', () async {
                 model.form['id'] = widget.checklistItem.id;
+                // Workaround due to Dropdown not having an onSaved callback
+                if (model.form['category'] == null)
+                  model.form['category'] = widget.checklistItem.category;
                 return await model.validateForm();
               }, postCallback: () {
                 // TODO: Fix this monstrosity.
