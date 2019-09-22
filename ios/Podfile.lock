@@ -54,7 +54,7 @@ SPEC CHECKSUMS:
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
   flutter_image_compress: f69d0e0e078ce52b4810695593bc861ee319ae7d
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  image_picker: a211f28b95a560433c00f5cd3773f4710a20404d
+  image_picker: 16e5fec1fbc87fd3b297c53e4048521eaf17cd06
   Mantle: 2fa750afa478cd625a94230fbf1c13462f29395b
   path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96

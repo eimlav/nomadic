@@ -87,7 +87,7 @@ class _ChecklistViewBottomSheetState extends State<ChecklistViewBottomSheet> {
                               context, RoutePaths.ChecklistPhoto,
                               arguments: widget.checklistItem)
                         },
-                    child: Text("View/Edit",
+                    child: Text("Open",
                         style: Styles.textLink,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.right)),

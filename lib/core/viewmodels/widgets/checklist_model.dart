@@ -10,6 +10,7 @@ class ChecklistModel extends BaseModel {
     'Luggage': false,
     'Clothing': false,
     'Electronics': false,
+    'Toiletries': false,
     'Food': false,
     'Documents': false,
     'Misc': false,

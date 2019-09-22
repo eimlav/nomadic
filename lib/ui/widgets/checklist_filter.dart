@@ -13,6 +13,7 @@ class _ChecklistFilterState extends State<ChecklistFilter> {
     'Luggage': false,
     'Clothing': false,
     'Electronics': false,
+    'Toiletries': false,
     'Food': false,
     'Documents': false,
     'Misc': false,
@@ -25,6 +26,7 @@ class _ChecklistFilterState extends State<ChecklistFilter> {
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -33,6 +35,7 @@ class _ChecklistFilterState extends State<ChecklistFilter> {
                   _buildCheckbox('Luggage'),
                   _buildCheckbox('Electronics'),
                   _buildCheckbox('Documents'),
+                  _buildCheckbox('Misc'),
                 ],
               ),
               Column(
@@ -40,8 +43,8 @@ class _ChecklistFilterState extends State<ChecklistFilter> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _buildCheckbox('Clothing'),
+                  _buildCheckbox('Toiletries'),
                   _buildCheckbox('Food'),
-                  _buildCheckbox('Misc'),
                 ],
               ),
             ],
